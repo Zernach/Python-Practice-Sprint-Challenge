@@ -14,14 +14,37 @@
 #
 # Note that the first line of the CSV is header that describes the fields--this
 # should not be loaded into a City object.
+
+import csv
+
 cities = []
 
+class City:
+  def __init__(self, row_list):
+    self.city = row_list[0]
+    self.state_name = row_list[1]
+    self.county_name = row_list[2]
+    self.lat = row_list[3]
+    self.lng = row_list[4]
+    self.population = row_list[5]
+    self.density = row_list[6]
+    self.timezone = row_list[7]
+    self.zips = row_list[8]
+  
+  def __str__(self):
+    return (f"\nCity = {self.city}\nState = {self.state_name}\nCounty = {self.county_name}\nLat = {self.lat}\nLong = {self.lng}\nPopulation = {self.population}\nDensity = {self.density}\nTimezone = {self.timezone}\nZip Codes = {self.zips}""")
+
 def cityreader(cities=[]):
-  # TODO Implement the functionality to read from the 'cities.csv' file
+  # Implement the functionality to read from the 'cities.csv' file
   # For each city record, create a new City instance and add it to the 
   # `cities` list
-    
-    return cities
+
+  with open('cities.csv') as csvfile:
+    reader = csv.reader(csvfile)
+    for city_row in reader:
+      cities.append(City(city_row))
+  
+  return cities
 
 cityreader(cities)
 
@@ -64,7 +87,7 @@ def cityreader_stretch(lat1, lon1, lat2, lon2, cities=[]):
   # within will hold the cities that fall within the specified region
   within = []
 
-  # TODO Ensure that the lat and lon valuse are all floats
+  # Ensure that the lat and lon valuse are all floats
   # Go through each city and check to see if it falls within 
   # the specified coordinates.
 
